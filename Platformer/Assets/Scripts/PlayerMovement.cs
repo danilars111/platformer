@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _direction *= -1;
         transform.localScale = new Vector3(_direction, 1, 1);
+        print("Flip: " + _direction);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -111,4 +112,13 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0, new Vector2(_direction, 0), 0.1f, wallLayer);
         return raycastHit.collider != null;
     }
+
+    public bool canAttack()
+    {
+        return _horizontalInput == 0 && isGrounded() && !onWall();
+    }
+
+    public int GetDirection() {
+        print("GET: " + _direction);
+        return _direction; }
 }
